@@ -1,7 +1,6 @@
-//#ifndef GAMEOFLIFEONGRAPHSCPP_GOL_H
-//#define GAMEOFLIFEONGRAPHSCPP_GOL_H
-//
-//#endif //GAMEOFLIFEONGRAPHSCPP_GOL_H
+#ifndef GAMEOFLIFEONGRAPHSCPP_GOL_H
+#define GAMEOFLIFEONGRAPHSCPP_GOL_H
+
 #include "set"
 #include "vector"
 #include "graph.h"
@@ -16,5 +15,7 @@ public:
 
     GOL(){};
     GOL(int a, int d, int r, Graph* g, std::set<size_t> alive);
-    void Evolve();
+    void Evolve(bool update_labels);
 };
+
+#endif //GAMEOFLIFEONGRAPHSCPP_GOL_H
