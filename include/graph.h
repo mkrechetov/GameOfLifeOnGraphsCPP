@@ -10,7 +10,9 @@ public:
     Graph()= default;;
     Graph(std::string g6);
     Graph(int n, int m, int seed);
-    void PrintAdjM();
+    void print_adjm();
 };
+
+std::vector<Graph> read_file(std::string filename);
 
 #endif //GAMEOFLIFEONGRAPHSCPP_GRAPH_H

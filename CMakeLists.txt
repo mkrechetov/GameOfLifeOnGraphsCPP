@@ -5,3 +5,4 @@ set(CMAKE_CXX_STANDARD 14)
 
 add_executable(GameOfLifeOnGraphsCPP main.cpp include/gol.h include/graph.h source/gol.cpp source/graph.cpp)
 include_directories(./include)
+include_directories(./collections)

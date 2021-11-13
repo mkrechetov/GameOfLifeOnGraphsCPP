@@ -1,5 +1,7 @@
-#include <iostream>
 #include <graph.h>
+#include <iostream>
+#include <fstream> // reading from file
+#include <sstream> // reading from file line by line
 
 std::string DecToBinary(int n)
 {
@@ -9,7 +11,7 @@ std::string DecToBinary(int n)
     return r;
 }
 
-void Graph::PrintAdjM() {
+void Graph::print_adjm() {
     int n = this->adjm.size();
 
     for(int i=0; i<n; ++i) {
@@ -52,5 +54,25 @@ Graph::Graph(std::string g6) {
 
 Graph::Graph(int n, int m, int seed) {
 
+}
+
+std::vector<Graph> read_file(std::string filename) {
+    std::ifstream infile(filename);
+    std::stringstream iss;
+    std::string line;
+
+    std::vector<Graph> Glst;
+    std::string s;
+    while (true) {
+        std::getline(infile, line);
+        iss.str(line);
+        if (!(iss >> s)){
+            break;
+        }
+        Glst.emplace_back(Graph(s));
+        iss.clear();
+    }
+
+    return Glst;
 }
 

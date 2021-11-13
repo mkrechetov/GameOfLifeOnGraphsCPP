@@ -11,11 +11,10 @@ private:
     Graph* graph;
 public:
     std::set<size_t> alive;
-    std::vector<size_t> labels;
 
     GOL(){};
     GOL(int a, int d, int r, Graph* g, std::set<size_t> alive);
-    void Evolve(bool update_labels);
+    void Evolve();
 };
 
 #endif //GAMEOFLIFEONGRAPHSCPP_GOL_H
