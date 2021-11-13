@@ -18,7 +18,7 @@ void GOL::Evolve() {
         int n_dead = 0;
 
         for (size_t j=0; j<n; ++j) {
-            if (i != j) {
+            if ((i != j) and (graph->adjm[i][j] == 1)){
                 auto it = this->alive.find(j);
                 if (it == this->alive.end()) {
                     n_dead += 1;
@@ -43,4 +43,6 @@ void GOL::Evolve() {
 
 
     }
+
+    this->alive = new_alive;
 }
