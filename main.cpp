@@ -121,19 +121,26 @@ void test_collection(std::string filename, size_t max_iter) {
 
 void collect_stats(size_t n, size_t max_m, size_t samples) {
 
+    size_t min_m = 10;
+    size_t step = 2;
+
     std::vector<size_t> dies;
     dies.reserve(max_m);
     std::vector<size_t> max_complexity;
     max_complexity.reserve(max_m);
-    for (size_t m=n; m<max_m; ++m) {dies.push_back(0); max_complexity.push_back(1);}
+    std::vector<size_t> total_complexity;
+    total_complexity.reserve(max_m);
+    for (size_t m=min_m; m<max_m; m=m+step) {dies.push_back(0); max_complexity.push_back(1); total_complexity.push_back(1);}
 
-    for (size_t m=n; m<max_m; ++m) {
+    for (size_t m=min_m; m<max_m; m=m+step) {
         for (size_t s=0; s<samples; ++ s) {
             Graph g(n, m);
             for (size_t v=0; v<n; ++v) {
                 std::set<size_t> v_alive{ v };
                 GOL Game(1, 1, 1, &g, v_alive);
                 size_t complexity = Game.Complexity();
+
+                total_complexity[m] += complexity;
 
                 if (complexity > max_complexity[m]) {
                     max_complexity[m] = complexity;
@@ -147,22 +154,26 @@ void collect_stats(size_t n, size_t max_m, size_t samples) {
     }
 
     std::cout << "% Dies: [";
-    for (size_t m=n; m<max_m; ++m) {
+    for (size_t m=min_m; m<max_m; m=m+step) {
         std:: cout << float(dies[m])/(float(samples)*float(n)) << ", ";
     }
     std:: cout << "]" << std::endl;
 
     std::cout << "Complexity: [";
-    for (size_t m=n; m<max_m; ++m) {
+    for (size_t m=min_m; m<max_m; m=m+step) {
         std:: cout << max_complexity[m] << ", ";
     }
     std:: cout << "]" << std::endl;
 
-
+    std::cout << "Average Complexity: [";
+    for (size_t m=min_m; m<max_m; m=m+step) {
+        std:: cout << float(total_complexity[m])/(float(samples)*float(n)) << ", ";
+    }
+    std:: cout << "]" << std::endl;
 }
 
 int main() {
-//    test_collection("/home/mk/CLionProjects/GameOfLifeOnGraphsCPP/collections/graph8c.g6", 5);
-    collect_stats(15, 60, 1000);
+    test_collection("/home/mk/CLionProjects/GameOfLifeOnGraphsCPP/collections/graph9c.g6", 5);
+//    collect_stats(10, 50, 500);
     return 0;
 }
