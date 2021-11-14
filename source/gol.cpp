@@ -8,7 +8,7 @@ GOL::GOL(int a, int d, int r, Graph *g, std::set<size_t> alive) {
     this->alive = std::move(alive);
 }
 
-void GOL::Evolve() {
+std::set<size_t> GOL::Evolve() {
     size_t n = graph->adjm.size();
 
     // update alive vertices
@@ -45,4 +45,29 @@ void GOL::Evolve() {
     }
 
     this->alive = new_alive;
+    return new_alive;
+}
+
+size_t GOL::Complexity() {
+
+    std::set<std::set<size_t>> history;
+    history.insert(this->alive);
+    size_t complexity = 1;
+
+    while (true) {
+        std::set<size_t> new_alive = this->Evolve();
+        if (new_alive.empty()) {
+            return complexity;
+        }
+        else {
+            auto it = history.find(new_alive);
+            if (it == history.end()) {
+                history.insert(new_alive);
+                complexity += 1;
+            }
+            else {
+                return complexity;
+            }
+        }
+    }
 }

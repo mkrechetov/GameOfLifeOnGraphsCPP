@@ -14,7 +14,8 @@ public:
 
     GOL(){};
     GOL(int a, int d, int r, Graph* g, std::set<size_t> alive);
-    void Evolve();
+    std::set<size_t> Evolve();
+    size_t Complexity();
 };
 
 #endif //GAMEOFLIFEONGRAPHSCPP_GOL_H
