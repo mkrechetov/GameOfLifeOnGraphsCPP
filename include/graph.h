@@ -9,7 +9,7 @@ public:
 
     Graph()= default;;
     Graph(std::string g6);
-    Graph(int n, int m, int seed);
+    Graph(size_t n, size_t m);
     void print_adjm();
 };
 
